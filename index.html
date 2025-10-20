@@ -75,12 +75,12 @@
 
     <!-- Footer -->
     <footer>
-        © 2025 - Réalisé par Mohamed larbi Sadiki - Institut Agronomique et Vétérinaire Hassan II
+        © 2025 - Réalisé par [Votre Nom] - Institut Agronomique et Vétérinaire Hassan II
     </footer>
 
     <script>
         // 1. Initialisation de la carte
-        const map = L.map('map').setView([33.9764, -6.8668], 17);
+        const map = L.map('map').setView([33.9725, -6.8497], 16);
 
         // 2. Fond de carte OpenStreetMap
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -102,16 +102,10 @@
 
         // 5. Exemple de Polygone (modifiable plus tard)
         const polygon = L.polygon([
-            [33.976292, -6.866748],
-            [33.976499, -6.867048],
-            [33.976637, -6.866915],
-            [33.976525, -6.866751],
-            [33.976502, -6.866770],
-            [33.976412, -6.866641]
+            [33.9730, -6.8500],
+            [33.9732, -6.8490],
+            [33.9722, -6.8488]
         ]).addTo(map).bindPopup('<b>Zone polygonale</b>');
-
-// Centrer la carte sur le polygone
-        map.fitBounds(polygon.getBounds());
 
         // 6. Affichage popup au clic sur la carte
         const popup = L.popup();
@@ -126,5 +120,3 @@
 
 </body>
 </html>
-
-
