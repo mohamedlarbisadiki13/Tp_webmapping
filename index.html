@@ -110,6 +110,9 @@
             [33.976412, -6.866641]
         ]).addTo(map).bindPopup('<b>Zone polygonale</b>');
 
+// Centrer la carte sur le polygone
+        map.fitBounds(polygon.getBounds());
+
         // 6. Affichage popup au clic sur la carte
         const popup = L.popup();
         function onMapClick(e) {
@@ -123,4 +126,5 @@
 
 </body>
 </html>
+
 
