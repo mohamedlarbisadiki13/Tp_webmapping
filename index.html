@@ -4,117 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP Web Mapping - IAV Hassan II</title>
-    
-    <!-- Leaflet CSS & JS -->
+
+    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
+
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
-    
+
     <!-- Styles -->
     <style>
-        body, html {
-            height: 100%;
+        body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
+            background-color: #f4f4f4;
         }
 
-        h1, p {
+        /* Header */
+        header {
+            background-color: #0077b6;
+            color: white;
+            padding: 15px 0;
             text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
         }
 
+        /* Sub-title */
+        .subtitle {
+            text-align: center;
+            margin-top: 5px;
+            color: #555;
+            font-size: 1em;
+        }
+
+        /* Map Container */
         #map {
-            height: 80vh;
+            height: 75vh;
             width: 90%;
             max-width: 1200px;
             margin: 20px auto;
             border: 2px solid #333;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
-        .leaflet-popup-content-wrapper {
-            font-size: 14px;
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9em;
         }
     </style>
 </head>
+
 <body>
 
-    <h1>TP1 : réalisé par Mohamed larbi Sadiki</h1>
-    <p>Carte interactive de l'Institut Agronomique et Vétérinaire Hassan II, Al Irfane, Rabat.</p>
+    <!-- Header -->
+    <header>
+        TP Web Mapping - IAV Hassan II
+    </header>
+    <p class="subtitle">Carte interactive du campus IAV à Rabat</p>
 
+    <!-- Map -->
     <div id="map"></div>
 
+    <!-- Footer -->
+    <footer>
+        © 2025 - Réalisé par Mohamed larbi Sadiki - Institut Agronomique et Vétérinaire Hassan II
+    </footer>
+
     <script>
-        // Initialisation de la carte centrée sur IAV Hassan II, Rabat
+        // 1. Initialisation de la carte
         const map = L.map('map').setView([33.9725, -6.8497], 16);
 
-        // Ajouter les tuiles OpenStreetMap
+        // 2. Fond de carte OpenStreetMap
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; OpenStreetMap'
         }).addTo(map);
 
-        // Marker principal - bâtiment principal
+        // 3. Marker principal
         const marker = L.marker([33.9728, -6.8495]).addTo(map)
-            .bindPopup('<b>Bâtiment principal</b><br>Institut Agronomique et Vétérinaire Hassan II.').openPopup();
+            .bindPopup('<b>Bâtiment principal</b><br>IAV Hassan II');
 
-        // Cercle représentant la zone d’activité
+        // 4. Cercle plus petit
         const circle = L.circle([33.9725, -6.8497], {
             color: 'blue',
             fillColor: '#3f87ff',
             fillOpacity: 0.3,
-            radius: 150
-        }).addTo(map).bindPopup('<b>Zone d’activité</b><br>Zone centrale du campus.');
+            radius: 70 // <<< Smaller radius
+        }).addTo(map).bindPopup('<b>Zone d’activité</b> (rayon réduit)');
 
-        // Polygone représentant un bâtiment ou une zone spécifique
+        // 5. Exemple de Polygone (modifiable plus tard)
         const polygon = L.polygon([
-            [33.9730, -6.8500],
-            [33.9732, -6.8490],
-            [33.9722, -6.8488]
-        ]).addTo(map).bindPopup('<b>Zone expérimentale</b><br>Exemple de zone polygonale.');
+            [33.976292, -6.866748],
+            [33.976499, -6.867048],
+            [33.976637, -6.866915],
+            [33.976525, -6.866751],
+            [33.976502, -6.866770],
+            [33.976412, -6.866641]
+        ]).addTo(map).bindPopup('<b>Zone polygonale</b>');
 
-        // Popup au clic sur la carte
+        // 6. Affichage popup au clic sur la carte
         const popup = L.popup();
         function onMapClick(e) {
             popup
                 .setLatLng(e.latlng)
-                .setContent(`Vous avez cliqué à l'emplacement ${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`)
+                .setContent(`Vous avez cliqué ici : <br>${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`)
                 .openOn(map);
         }
         map.on('click', onMapClick);
-
-    </script>
-
-</body>
-</html>
-a zone d’activité
-        const circle = L.circle([33.9725, -6.8497], {
-            color: 'blue',
-            fillColor: '#3f87ff',
-            fillOpacity: 0.3,
-            radius: 150
-        }).addTo(map).bindPopup('<b>Zone d’activité</b><br>Zone centrale du campus.');
-
-        // Polygone représentant un bâtiment ou une zone spécifique
-        const polygon = L.polygon([
-            [33.9730, -6.8500],
-            [33.9732, -6.8490],
-            [33.9722, -6.8488]
-        ]).addTo(map).bindPopup('<b>Zone expérimentale</b><br>Exemple de zone polygonale.');
-
-        // Popup au clic sur la carte
-        const popup = L.popup();
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent(`Vous avez cliqué à l'emplacement ${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}`)
-                .openOn(map);
-        }
-        map.on('click', onMapClick);
-
     </script>
 
 </body>
